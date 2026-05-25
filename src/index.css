@@ -1,0 +1,36 @@
+:root {
+  --whitePrimary: #ffffff;
+  --greySecondary: #b3b3b3;
+  --deepGreyBg: #2d2d2d99;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Urbanist Variable", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+/* MOBILE VIEW */
+
+@media screen and (max-width: 660px) {
+
+}
