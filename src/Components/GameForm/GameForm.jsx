@@ -1,9 +1,27 @@
 import { useState } from "react";
 import "./gameForm.css";
 
-export function GameForm() {
+export function GameForm({ toggleAddGame }) {
+  const [formData, setFormData] = useState({
+    gameName: "",
+    plateform: "",
+    date: "",
+    hours: "",
+    status: "",
+    comments: "",
+    note: "",
+  });
+
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -12,9 +30,40 @@ export function GameForm() {
       setImagePreview(URL.createObjectURL(file));
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const finalData = {
+      ...formData,
+      image: imageFile ? imageFile.name : "Aucune image fournie",
+    };
+    /* À supprimer une fois connecté à l'API ⬇️ */
+    console.log("Données du nouveau jeu prêtes à être envoyées :", finalData);
+
+    setFormData({
+      gameName: "",
+      plateform: "",
+      date: "",
+      hours: "",
+      status: "",
+      comments: "",
+      note: "",
+    });
+    setImageFile(null);
+    setImagePreview(null);
+
+    toggleAddGame();
+  };
+
+  const isFormValid =
+    formData.gameName.trim().length > 0 &&
+    formData.plateform.trim().length > 0 &&
+    formData.status !== "";
+
   return (
     <div className="game-wrapper">
-      <form className="game-form">
+      <form className="game-form" onSubmit={handleSubmit}>
         <div className="columns-left">
           <div className="fields-group">
             <label htmlFor="gameName">Nom du jeu :</label>
@@ -22,23 +71,33 @@ export function GameForm() {
               type="text"
               id="gameName"
               name="gameName"
+              value={formData.gameName}
+              onChange={handleChange}
               placeholder="Ex : The Last Of Us"
               required
             />
           </div>
           <div className="both-group">
             <div className="fields-group">
-              <label htmlFor="plateform">Plateforme</label>
+              <label htmlFor="plateform">Plateforme :</label>
               <input
                 type="text"
                 id="plateform"
                 name="plateform"
+                value={formData.plateform}
+                onChange={handleChange}
                 placeholder="Ex : PS3"
               />
             </div>
             <div className="fields-group">
               <label htmlFor="date">Date de début du jeu :</label>
-              <input type="date" id="date" name="date" />
+              <input 
+                type="date" 
+                id="date" 
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="both-group">
@@ -48,12 +107,19 @@ export function GameForm() {
                 type="number"
                 id="hours"
                 name="hours"
+                value={formData.hours}
+                onChange={handleChange}
                 placeholder="Ex : 53"
               />
             </div>
             <div className="fields-group">
               <label htmlFor="status">Statut :</label>
-              <select name="status" id="status">
+              <select 
+                name="status" 
+                id="status"
+                value={formData.status}
+                onChange={handleChange}
+              >
                 <option value=""></option>
                 <option value="todo">À faire</option>
                 <option value="inprogress">En cours</option>
@@ -67,6 +133,8 @@ export function GameForm() {
             <textarea
               id="comments"
               name="comments"
+              value={formData.comments}
+              onChange={handleChange}
               rows="5"
               minLength="1"
               maxLength="300"
@@ -74,11 +142,13 @@ export function GameForm() {
             />
           </div>
           <div className="fields-group">
-            <label htmlFor="note">Nom du jeu :</label>
+            <label htmlFor="note">Note attribuée :</label>
             <input
               type="number"
               id="note"
               name="note"
+              value={formData.note}
+              onChange={handleChange}
               min="0"
               max="20"
               placeholder="Note sur 20"
@@ -110,7 +180,11 @@ export function GameForm() {
               )}
             </label>
           </div>
-          <button type="submit" className="submit-game-btn" disabled>
+          <button 
+            type="submit" 
+            className="submit-game-btn" 
+            disabled={!isFormValid}
+          >
             Valider
           </button>
         </div>

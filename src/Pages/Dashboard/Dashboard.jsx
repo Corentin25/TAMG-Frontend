@@ -9,15 +9,15 @@ export function Dashboard() {
     setIsAddGame(!isAddGame);
   };
   return (
-    <>
+    <div className="addGameContainer">
       <button
-        className="addGameButton"
-        aria-label="Ajouter un jeu"
+        className={!isAddGame ? "addGameButton" : "cancelAddGame"}
+        aria-label={!isAddGame ? "Ajouter un jeu" : "Annuler l'ajout"}
         onClick={toggleAddGame}
       >
         {!isAddGame ? "+ Ajouter un jeu" : "Annuler"}
       </button>
-      {isAddGame && <GameForm />}
-    </>
+      {isAddGame && <GameForm toggleAddGame={toggleAddGame} />}
+    </div>
   );
 }

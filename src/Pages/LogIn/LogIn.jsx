@@ -6,8 +6,10 @@ import "./login.css";
 export function LogIn() {
   return (
     <main>
-      <img src={Logo} alt="Logo These Are My Games" className="logoLogin" />
-      <AuthForm />
+      <div className="loginContainer">
+        <img src={Logo} alt="Logo These Are My Games" className="logoLogin" />
+        <AuthForm />
+      </div>
     </main>
   );
 }

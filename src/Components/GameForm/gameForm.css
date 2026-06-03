@@ -15,7 +15,7 @@
   border-radius: 30px;
   border-bottom: #cbcbcb solid 6px;
   width: 100%;
-  padding: 2rem;
+  padding: 1.1rem 2rem;
 }
 
 .columns-left {
@@ -40,7 +40,7 @@
 
 .fields-group label {
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   color: #333333;
 }
 
@@ -71,7 +71,6 @@ textarea {
   gap: 15px;
 }
 
-/* Conteneur de l'upload */
 .image-upload-container {
   display: flex;
   width: 100%;
@@ -81,7 +80,6 @@ textarea {
   overflow: hidden;
 }
 
-/* Zone cliquable */
 .image-upload-label {
   display: flex;
   justify-content: center;
