@@ -1,7 +1,7 @@
 .addGameContainer {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex: 1;
   width: 100%;
@@ -38,4 +38,24 @@
 
 .cancelAddGame:hover {
   background-color: #ffffff2e;
+}
+
+.empty-list {
+  color: var(--whitePrimary);
+  text-align: center;
+  margin: 0;
+}
+
+.games-list {
+  width: 75%;
+  margin-top: 2.5rem;
+}
+
+/* MOBILE VIEW */
+
+@media screen and (max-width: 1100px) {
+  .games-list {
+    width: 100%;
+    margin-top: 1.8rem;
+  }
 }

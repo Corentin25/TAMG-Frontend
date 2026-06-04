@@ -1,0 +1,195 @@
+.game-card {
+  display: flex;
+  min-height: 235px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #ffffff1a;
+  border-radius: 1rem;
+  color: #ffffff;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}
+
+.image-container {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.game-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.empty-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #1a202c;
+  color: #718096;
+  font-style: italic;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  gap: 0.7rem;
+  flex-grow: 1;
+}
+
+.game-title {
+  margin: 0;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+.game-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 15px;
+  color: #cbd5e1;
+}
+
+.game-platform {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  width: 110px;
+}
+
+.status-badge.todo {
+  background-color: #64748b;
+}
+.status-badge.inprogress {
+  background-color: #eab308;
+  color: #000;
+}
+.status-badge.finished {
+  background-color: #22c55e;
+}
+.status-badge.giveup {
+  background-color: #ef4444;
+}
+
+.game-comment {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #94a3b8;
+  margin: 0;
+  width: 80%;
+}
+
+.note-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 120px;
+  padding: 1rem 0rem;
+}
+
+.game-note {
+  font-size: 25px;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 19px;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+.edit-icon,
+.delete-icon {
+  background-color: #64748b70;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  padding: 0.4rem 0.3rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-icon:hover,
+.delete-icon:hover {
+  background-color: #64748b;
+}
+
+/* MOBILE VIEW */
+
+@media screen and (max-width: 1100px) {
+  .game-card {
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  .image-container {
+    width: 100%;
+  }
+
+  .game-image {
+    width: 100%;
+    min-height: 200px;
+    object-fit: cover;
+  }
+
+  .empty-image {
+    min-height: 200px;
+  }
+
+  .game-info {
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  }
+
+  .game-meta {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .game-comment {
+    font-size: 16px;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .note-group {
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: 100%;
+    padding: 1.6rem;
+  }
+
+  .game-note {
+    font-size: 30px;
+  }
+
+  .icons {
+    flex-direction: row;
+    font-size: 22px;
+    margin-top: 0rem;
+  }
+
+  .edit-icon,
+  .delete-icon {
+    padding: 0.5rem 0.4rem;
+  }
+}

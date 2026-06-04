@@ -1,7 +1,8 @@
 import { useState } from "react";
+
 import "./gameForm.css";
 
-export function GameForm({ toggleAddGame }) {
+export function GameForm({ toggleAddGame, addGameToList }) {
   const [formData, setFormData] = useState({
     gameName: "",
     plateform: "",
@@ -37,9 +38,12 @@ export function GameForm({ toggleAddGame }) {
     const finalData = {
       ...formData,
       image: imageFile ? imageFile.name : "Aucune image fournie",
+      imagePreview: imagePreview,
     };
     /* À supprimer une fois connecté à l'API ⬇️ */
     console.log("Données du nouveau jeu prêtes à être envoyées :", finalData);
+
+    addGameToList(finalData);
 
     setFormData({
       gameName: "",
@@ -91,9 +95,9 @@ export function GameForm({ toggleAddGame }) {
             </div>
             <div className="fields-group">
               <label htmlFor="date">Date de début du jeu :</label>
-              <input 
-                type="date" 
-                id="date" 
+              <input
+                type="date"
+                id="date"
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
@@ -114,8 +118,8 @@ export function GameForm({ toggleAddGame }) {
             </div>
             <div className="fields-group">
               <label htmlFor="status">Statut :</label>
-              <select 
-                name="status" 
+              <select
+                name="status"
                 id="status"
                 value={formData.status}
                 onChange={handleChange}
@@ -180,9 +184,9 @@ export function GameForm({ toggleAddGame }) {
               )}
             </label>
           </div>
-          <button 
-            type="submit" 
-            className="submit-game-btn" 
+          <button
+            type="submit"
+            className="submit-game-btn"
             disabled={!isFormValid}
           >
             Valider
