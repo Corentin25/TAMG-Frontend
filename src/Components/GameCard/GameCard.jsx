@@ -4,7 +4,16 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import "./gameCard.css";
 
-export function GameCard({ game }) {
+export function GameCard({ game, onEdit, onDelete }) {
+  const handleDeleteClick = () => {
+    const confirmDelete = window.confirm(
+      `Êtes-vous sûr de vouloir supprimer le jeu "${game.gameName}" ?`,
+    );
+    if (confirmDelete) {
+      onDelete(game.id);
+    }
+  };
+
   return (
     <article className="game-card">
       <div className="image-container">
@@ -41,8 +50,16 @@ export function GameCard({ game }) {
       <div className="note-group">
         <span className="game-note">{game.note}/20</span>
         <div className="icons">
-          <FontAwesomeIcon icon={faPenToSquare} className="edit-icon" />
-          <FontAwesomeIcon icon={faTrashCan} className="delete-icon" />
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            className="edit-icon"
+            onClick={() => onEdit(game)}
+          />
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="delete-icon"
+            onClick={handleDeleteClick}
+          />
         </div>
       </div>
     </article>

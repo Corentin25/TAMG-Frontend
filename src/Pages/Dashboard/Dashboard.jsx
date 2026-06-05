@@ -9,12 +9,33 @@ export function Dashboard() {
 
   const [gamesList, setGamesList] = useState([]);
 
+  const [gameToEdit, setGameToEdit] = useState(null);
+
   const toggleAddGame = () => {
     setIsAddGame(!isAddGame);
+    if (isAddGame) {
+      setGameToEdit(null);
+    }
   };
 
   const handleAddGameToList = (newGame) => {
-    setGamesList([...gamesList, newGame]);
+    if (newGame.id) {
+      setGamesList(
+        gamesList.map((game) => (game.id === newGame.id ? newGame : game)),
+      );
+    } else {
+      setGamesList([...gamesList, { ...newGame, id: Date.now() }]);
+    }
+  };
+
+  const handleDeleteGame = (gameId) => {
+    setGamesList(gamesList.filter((game) => game.id !== gameId));
+  };
+
+  const handleEditGame = (game) => {
+    setGameToEdit(game);
+    setIsAddGame(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -30,6 +51,7 @@ export function Dashboard() {
         <GameForm
           toggleAddGame={toggleAddGame}
           addGameToList={handleAddGameToList}
+          gameToEdit={gameToEdit}
         />
       )}
       <section className="games-list">
@@ -38,7 +60,14 @@ export function Dashboard() {
             Votre bibliothèque est vide. Ajoutez votre premier jeu !
           </p>
         ) : (
-          gamesList.map((game, index) => <GameCard key={index} game={game} />)
+          gamesList.map((game) => (
+            <GameCard
+              key={game.id}
+              game={game}
+              onDelete={handleDeleteGame}
+              onEdit={handleEditGame}
+            />
+          ))
         )}
       </section>
     </div>

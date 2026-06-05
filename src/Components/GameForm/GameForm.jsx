@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./gameForm.css";
 
-export function GameForm({ toggleAddGame, addGameToList }) {
+export function GameForm({ toggleAddGame, addGameToList, gameToEdit }) {
   const [formData, setFormData] = useState({
     gameName: "",
     plateform: "",
@@ -14,7 +14,23 @@ export function GameForm({ toggleAddGame, addGameToList }) {
   });
 
   const [imageFile, setImageFile] = useState(null);
+
   const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    if (gameToEdit) {
+      setFormData({
+        gameName: gameToEdit.gameName || "",
+        plateform: gameToEdit.plateform || "",
+        date: gameToEdit.date || "",
+        hours: gameToEdit.hours || "",
+        status: gameToEdit.status || "",
+        comments: gameToEdit.comments || "",
+        note: gameToEdit.note || "",
+      });
+      setImagePreview(gameToEdit.imagePreview || null);
+    }
+  }, [gameToEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,12 +53,14 @@ export function GameForm({ toggleAddGame, addGameToList }) {
 
     const finalData = {
       ...formData,
-      image: imageFile ? imageFile.name : "Aucune image fournie",
+      id: gameToEdit ? gameToEdit.id : null,
+      image: imageFile
+        ? imageFile.name
+        : gameToEdit
+          ? gameToEdit.image
+          : "Aucune image fournie",
       imagePreview: imagePreview,
     };
-    /* À supprimer une fois connecté à l'API ⬇️ */
-    console.log("Données du nouveau jeu prêtes à être envoyées :", finalData);
-
     addGameToList(finalData);
 
     setFormData({
@@ -56,7 +74,6 @@ export function GameForm({ toggleAddGame, addGameToList }) {
     });
     setImageFile(null);
     setImagePreview(null);
-
     toggleAddGame();
   };
 
@@ -189,7 +206,7 @@ export function GameForm({ toggleAddGame, addGameToList }) {
             className="submit-game-btn"
             disabled={!isFormValid}
           >
-            Valider
+            {gameToEdit ? "Modifier" : "Valider"}
           </button>
         </div>
       </form>
